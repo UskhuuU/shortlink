@@ -66,27 +66,14 @@ export const App = () => {
     }
   };
   const link = () => {
-    if (url) {
-      setURL(url.current.value);
-      setShortURL(url.current.value);
-    }
-
     axios
-      .post(
-        "http://localhost:8000/links",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-          },
-        },
-        {
-          URL: URL,
-        }
-      )
+      .post("http://localhost:8000/links", {
+        URL: url.current.value,
+      })
       .then(function (response) {
-        console.log(response);
+        console.log("LOG: ", response);
+        setURL(response.data.data.URL);
+        setShortURL("http://localhost:8000/links/" + response.data.data._id);
       })
       .catch(function (error) {
         console.log(error);

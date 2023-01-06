@@ -3,11 +3,10 @@ const { model, Schema } = require("mongoose");
 
 const LinkScheme = new Schema({
     URL: String, 
-    shortURL: String,
-    registerDate: { type: Date, default: Date.now},
+    shortURL: {type: String, required: false},
+    registerDate: { type: Date, default: Date.now, required: false},
 });
 
 
 const LinkModel = model("Link", LinkScheme);
-
 module.exports = LinkModel;

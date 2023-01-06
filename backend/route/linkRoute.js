@@ -2,19 +2,17 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    
-    createLink,
-    getLinks,
-    deleteLink,
     getLink,
+    getLinks,
+    createLink,
+    deleteLink,
 
 } = require("../controller/linkController")
  
 router 
-
+    .get("/:id", getLink)
     .get("/", getLinks)
     .post('/', createLink)
     .delete('/:id', deleteLink)
-    .get("/:id", getLink)
 
 module.exports = router;
