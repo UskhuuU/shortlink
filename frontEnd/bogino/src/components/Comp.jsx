@@ -26,6 +26,7 @@ const styles = {
     lineHeight: "100%",
     align: "Left",
     verticalAlign: "Top",
+    overflow: "hidden",
   },
   button: {
     width: 100,

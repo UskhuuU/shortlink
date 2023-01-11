@@ -5,6 +5,12 @@ import "@fontsource/ubuntu";
 import { Footer } from "../components/Footer";
 import { Comp } from "../components/Comp";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { History } from "../components/History";
+import { useContext } from "react";
+import { HistoryContext } from "../components/HistoryComp";
+import { HistoryComp } from "../components/HistoryComp";
+import { useHistoryContext } from "../components/HistoryComp";
 
 const styles = {
   container: {
@@ -54,12 +60,24 @@ const styles = {
     backgroundColor: "#02B589",
     color: "white",
   },
+  HistoryContainer: {
+    width: "100vw",
+    height: "500px",
+    backgroundColor: "blue",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  },
 };
+
 export const App = () => {
+  const { data, setData } = useHistoryContext();
+  const { id } = useParams();
   const [URL, setURL] = useState("");
   const [shortURL, setShortURL] = useState("");
   const url = useRef("");
-
+  console.log(data);
   const change = (e) => {
     if (e.target.value === "") {
       setURL("");
@@ -73,11 +91,21 @@ export const App = () => {
       .then(function (response) {
         console.log("LOG: ", response);
         setURL(response.data.data.URL);
-        setShortURL("http://localhost:8000/links/" + response.data.data._id);
+        setShortURL("http://localhost:3000/" + response.data.data._id);
       })
       .catch(function (error) {
         console.log(error);
       });
+  };
+
+  const Board = () => {
+    return (
+      <div style={styles.HistoryContainer}>
+        {data.map((el) => {
+          return <History />;
+        })}
+      </div>
+    );
   };
 
   return (
@@ -102,6 +130,11 @@ export const App = () => {
             onClick={link}
           />
         </div>
+        {data && <Board />}
+        {/* {data &&
+          data.map((links) => {
+            <History link={link} />;
+          })} */}
         {URL && <Comp URL={URL} shortURL={shortURL} />}
         <Footer />
       </div>

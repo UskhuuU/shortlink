@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "@fontsource/ubuntu";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { useContext } from "react";
+import { HistoryComp, HistoryContext, useHistoryContext } from "./HistoryComp";
 
 const styles = {
   container: {
@@ -10,9 +14,7 @@ const styles = {
     padding: 30,
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
-    gap: 50,
-    marginLeft: 600,
+    justifyContent: "space-around",
   },
   text: {
     color: "#02B589",
@@ -42,10 +44,39 @@ const styles = {
 };
 
 export const Header = () => {
+  const { data, setData } = useHistoryContext();
+
   return (
     <div style={styles.container}>
-      <p style={styles.text}>ХЭРХЭН АЖИЛЛАДАГ ВЭ?</p>
-      <input style={styles.input} value="НЭВТРЭХ" type="button" />
+      <div>
+        <input
+          style={styles.input}
+          value="ТҮҮХ"
+          type="button"
+          onClick={() => {
+            axios
+              .get("http://localhost:8000/links")
+              .then((response) => {
+                console.log("=====>", response.data.data);
+                setData(response.data.data);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }}
+        />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          width: 500,
+          justifyContent: "space-between",
+        }}
+      >
+        <p style={styles.text}>ХЭРХЭН АЖИЛЛАДАГ ВЭ?</p>
+        <input style={styles.input} value="НЭВТРЭХ" type="button" />
+      </div>
     </div>
   );
 };
