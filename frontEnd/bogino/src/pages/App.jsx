@@ -7,14 +7,11 @@ import { Comp } from "../components/Comp";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { History } from "../components/History";
-import { useContext } from "react";
-import { HistoryContext } from "../components/HistoryComp";
-import { HistoryComp } from "../components/HistoryComp";
 import { useHistoryContext } from "../components/HistoryComp";
 
 const styles = {
   container: {
-    height: "100vh",
+    height: "auto",
     width: "100vw",
     display: "flex",
     flexDirection: "column",
@@ -22,11 +19,11 @@ const styles = {
   con: {
     display: "flex",
     flexDirection: "column",
-    height: "100vh",
+    height: "auto",
     width: "100vw",
-    justifyContent: "center",
     alignItems: "center",
     gap: 50,
+    paddingTop: "10vh",
   },
   input: {
     borderRadius: 100,
@@ -62,10 +59,8 @@ const styles = {
   },
   HistoryContainer: {
     width: "100vw",
-    height: "500px",
-    backgroundColor: "blue",
+    height: "auto",
     display: "flex",
-    justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
   },
@@ -73,6 +68,8 @@ const styles = {
 
 export const App = () => {
   const { data, setData } = useHistoryContext();
+  const { isClicked, setIsClicked } = useHistoryContext();
+  console.log(isClicked);
   const { id } = useParams();
   const [URL, setURL] = useState("");
   const [shortURL, setShortURL] = useState("");
@@ -91,7 +88,10 @@ export const App = () => {
       .then(function (response) {
         console.log("LOG: ", response);
         setURL(response.data.data.URL);
-        setShortURL("http://localhost:3000/" + response.data.data._id);
+        setShortURL("http://localhost:3000/links/ " + response.data.data._id);
+        if (isClicked) {
+          setIsClicked(false);
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -101,8 +101,8 @@ export const App = () => {
   const Board = () => {
     return (
       <div style={styles.HistoryContainer}>
-        {data.map((el) => {
-          return <History />;
+        {data.map((el, i) => {
+          return <History link={el} index={i} />;
         })}
       </div>
     );
@@ -130,12 +130,9 @@ export const App = () => {
             onClick={link}
           />
         </div>
-        {data && <Board />}
-        {/* {data &&
-          data.map((links) => {
-            <History link={link} />;
-          })} */}
-        {URL && <Comp URL={URL} shortURL={shortURL} />}
+        {isClicked && <Board />}
+        {isClicked ? "" : URL && <Comp URL={URL} shortURL={shortURL} />}
+
         <Footer />
       </div>
     </div>

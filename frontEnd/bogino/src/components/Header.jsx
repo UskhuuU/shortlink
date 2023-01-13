@@ -44,7 +44,21 @@ const styles = {
 };
 
 export const Header = () => {
-  const { data, setData } = useHistoryContext();
+  const { data, setData, isClicked, setIsClicked } = useHistoryContext();
+
+  const handleClick = async () => {
+    await axios
+      .get("http://localhost:8000/links")
+      .then((response) => {
+        console.log("=====>", response.data.data);
+        setData(response.data.data);
+        setIsClicked(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    setIsClicked(!isClicked);
+  };
 
   return (
     <div style={styles.container}>
@@ -53,17 +67,7 @@ export const Header = () => {
           style={styles.input}
           value="ТҮҮХ"
           type="button"
-          onClick={() => {
-            axios
-              .get("http://localhost:8000/links")
-              .then((response) => {
-                console.log("=====>", response.data.data);
-                setData(response.data.data);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          }}
+          onClick={handleClick}
         />
       </div>
       <div

@@ -12,9 +12,9 @@ const router = createBrowserRouter([
   {
     path:'/',
     element:<App/>
-  },
+  },  
   {
-    path:'/:id',
+    path:'/links/:id',
     element:<Redirect/>
   },
 ])
