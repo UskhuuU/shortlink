@@ -12,7 +12,7 @@ exports.createLink = async (request, response, next) => {
         }
     
         const createLink = await LinkModel.create({...request.body})
-            await LinkModel.findByIdAndUpdate(createLink.id, {shortURL: 'http://localhost:3000/links/' + createLink.id})
+            await LinkModel.findByIdAndUpdate(createLink.id, {shortURL:  createLink.id})
             response   
                 .status(201)
                 .json({message: `created`, data: createLink})
