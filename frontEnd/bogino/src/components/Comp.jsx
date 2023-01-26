@@ -60,7 +60,7 @@ export const Comp = ({ URL, shortURL }) => {
           <button
             style={styles.button}
             onClick={() => {
-              navigator.clipboard.writeText(shortURL);
+              navigator.clipboard.writeText(shortURL=URL);
             }}
           >
             Хуулж авах

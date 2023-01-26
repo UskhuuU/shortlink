@@ -4,7 +4,6 @@ import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router
 import { App } from './pages/App';
 import reportWebVitals from './reportWebVitals';
 import { Redirect } from './pages/Redirect';
-import { History } from './components/History';
 import { HistoryComp } from './components/HistoryComp';
 
 

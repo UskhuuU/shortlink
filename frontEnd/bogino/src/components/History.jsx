@@ -1,5 +1,6 @@
 import React from "react";
 import "@fontsource/ubuntu";
+import URL from "./Comp";
 const styles = {
   container: {
     width: "50vw",

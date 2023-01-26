@@ -88,7 +88,7 @@ export const App = () => {
       .then(function (response) {
         console.log("LOG: ", response);
         setURL(response.data.data.URL);
-        setShortURL("http://localhost:3000/links/ " + response.data.data._id);
+        setShortURL("http://localhost:8000/links/ " + response.data.data._id);
         if (isClicked) {
           setIsClicked(false);
         }

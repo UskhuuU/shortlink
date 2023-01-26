@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useParams, useLocation } from "react-router-dom";
-import React from "react";
+
 
 export const Redirect = () => {
   const { id } = useParams();

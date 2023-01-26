@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "@fontsource/ubuntu";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import { useContext } from "react";
 import { HistoryComp, HistoryContext, useHistoryContext } from "./HistoryComp";
 
 const styles = {
